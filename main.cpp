@@ -11,7 +11,7 @@ using namespace std;
 using namespace rlutil;
 
 int main(){
-int dados[6],auxMAx, puntaje1,cjugadores;
+int dados[6],auxMAx,cjugadores;
 int opcion=0,Maxpoint=0,rondas=11, i;
 char NombreMax[25];
 bool azar=false;
@@ -50,7 +50,8 @@ case 3:cjugadores=opcion;
     Juego(cjugadores,dados,Maxpoint,rondas,azar, NombreMax);
 break;
 case 4: system("cls");
-    cout<<"MEJOR PUNTUACION: "<<NombreMax<<" \t "<<rondas<<"\t"<<Maxpoint<<endl;
+    if(Maxpoint==0) cout<<endl<<endl<<"\t"<<"-QUE MEJOR PUNTUACION QUERES SI TODAVIA NO JUGASTE??,JUGATE UNA PARTIDA MASTER ;) "<<endl<<endl<<endl;
+        else cout<<"MEJOR PUNTUACION: "<<NombreMax<<" \t "<<rondas<<"\t"<<Maxpoint<<endl;
 system("pause");
 break;
 case 5 : reglas();

@@ -34,7 +34,7 @@
 	"rlutil.h"
 	"funciones.h"
 
-1593746847 source:e:\nueva carpeta\main.cpp
+1593823703 source:e:\nueva carpeta\main.cpp
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -58,9 +58,9 @@
 	<sys/types.h>
 	<sys/time.h>
 
-1593746840 e:\nueva carpeta\funciones.h
+1593823247 e:\nueva carpeta\funciones.h
 
-1593747082 source:e:\nueva carpeta\funciones.cpp
+1593826090 source:e:\nueva carpeta\funciones.cpp
 	<iostream>
 	<ctime>
 	<cstdlib>

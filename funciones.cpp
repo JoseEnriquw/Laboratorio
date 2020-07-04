@@ -12,7 +12,7 @@ using namespace rlutil;
 
 //FUNCION JUGAR
 void Juego(int cjugadores,int dados[],int &Maxpoint,int &rondas,bool azar , char  NombreMax[]){
-int Mayor,posiciones[cjugadores],cposiciones=0;
+int Mayor,posiciones[cjugadores],cposiciones=0,aux;
 int x,b, tam=6, round[cjugadores], tamn=25, puntos=0, puntostotal[cjugadores]{0}, clanzamientos, puntosronda,ganador=-1,i;
 char opcion;
 char Nombres[cjugadores][M];
@@ -30,15 +30,15 @@ for(x=1;x<=10; x++){
         //for de turnos
    for(i=0;i<cjugadores;i++){
     b=puntosronda=clanzamientos=0;
-cout<<"Ronda "<<x<<"   |\t"<<" Turno de: " <<Nombres [i]<<endl;
-
+if(x==11)cout<<"Ronda "<<aux<<"   |\t"<<" Turno de: " <<Nombres [i]<<endl;
+else cout<<"Ronda "<<x<<"   |\t"<<" Turno de: " <<Nombres [i]<<endl;
 seguir=1;
 //while de lanzamientos de dados
 while(seguir) {
 
 
 if(b==0) cout<<"Lanzar dados (S)"<<endl;
-else cout<<"¿Continuar lanzando? (S/N)"<<endl;
+else cout<<"Continuar lanzando? (S/N)"<<endl;
 cout<<"Abadonar partida (Q)"<<endl;
 b=1;
 cin>>opcion;
@@ -48,8 +48,11 @@ system ("cls");
 //  switch de opcion seguir tirando dados o abandonar
 switch(opcion){
 case 's' : case 'S':
+                       colores (i);
+                        system ("cls");
         clanzamientos++;
-        cout<<"Turno de " <<Nombres[i]<<"   |\t"<<"Ronda "<<x<<" | "<<"\t"<<"Puntaje total: "<<puntostotal[i]<<" puntos"<<endl;
+        if(x==11)cout<<"Turno de " <<Nombres[i]<<"   |\t"<<"Ronda "<<aux<<" | "<<"\t"<<"Puntaje total: "<<puntostotal[i]<<" puntos"<<endl;
+        else cout<<"Turno de " <<Nombres[i]<<"   |\t"<<"Ronda "<<x<<" | "<<"\t"<<"Puntaje total: "<<puntostotal[i]<<" puntos"<<endl;
         cout<<"--------------------------------------------------------------------------"<<endl;
         cout<<"Puntaje de la ronda: "<<puntosronda<<endl;
         cout<<"Lanzamiento Numero: "<<clanzamientos<<endl;
@@ -58,6 +61,7 @@ case 's' : case 'S':
         if(azar)LanzarDados(dados,tam);
         else CargarDados(dados,tam);
         cout<<endl;
+        colores (i);
         puntos=combinaciones (dados, tam);
         cout<<"Obtuviste "<<puntos<<" puntos"<<endl;
         cout << endl;
@@ -65,9 +69,10 @@ case 's' : case 'S':
         if(puntos==10000){
             cout<<"GANASTE!!!"<<endl;
             puntostotal[i]=puntos;
-            cout<<"Has ganado en la ronda "<<x<<" con un total de "<<puntostotal [i]<<"puntos."<<endl;
+           cout<<"Has ganado en la ronda "<<x<<" con un total de "<<puntostotal [i]<<"puntos."<<endl;
              seguir=0;
              round[i]=x;
+
              x=11;
              ganador=i;
 
@@ -80,11 +85,13 @@ case 's' : case 'S':
 
         }
         if(puntosronda+puntostotal[i]==10000){
-            cout<<"Felicitaciones llegastes a los 10000 puntos!!!!!!!!!"<<endl;
+            cout<<"Felicitaciones llegastes a los 10000 puntos!!!!!!!!!"<<endl<<endl<<endl;
             round[i]=x;
             seguir=0;
+            aux=x;
             x=11;
-
+            system("pause");
+        system("cls");
         }
 
        break;
@@ -107,12 +114,17 @@ case 'n': case 'N':
 }
 puntostotal[i]+=puntosronda;
 //terminacion de ronda
+
 if (x!=11){
+
 entreturnos ( Nombres,x, puntostotal,cjugadores, i);
 system("pause");
 system("cls");
 }
 }
+rlutil::setBackgroundColor(5);
+rlutil::setColor(BLACK);
+system("cls");
 }
 
 
@@ -137,12 +149,15 @@ for(x=0;x<cjugadores;x++){
 system("cls");
 
 
-
+cout<<endl;
+cout<<"------------------"<<endl;
 cout<<"Fin la partida. "<<endl;
-
+cout<<"------------------"<<endl;
+cout<<endl<<endl;
+if(x<11){
 //if para abandonar la partida
-if (opcion!='Q' ){
-    if (opcion!='q'){
+if (opcion!='Q'){
+    if (opcion!='q' ){
  if(cposiciones==1) {
 cout<<"Ganador:"<<endl;
 cout<<Nombres[ganador]<<endl;
@@ -151,16 +166,18 @@ cout<<"Rondas jugadas: "<<round[ganador]<<endl;
 cout<<"-------------------------------------------------------------------------"<<endl;
 cout<<"Puntos de ganador: "<<puntostotal[ganador]<<endl;
  }else{
-
-   cout <<"Hubo un empate entre: " ;
+    cout<<endl;
+   cout <<"Hubo un empate entre: "<<endl ;
     for (x=0; x<cposiciones;x++){
-        cout<<"-"<<Nombres[posiciones[x]];
+        cout<<endl<<endl;
+        cout<<"-"<<Nombres[posiciones[x]]<<endl;
+        cout<<endl;
     }
  }
 Buscar_Mejor_Puntuacion(Nombres,NombreMax,round,rondas,puntostotal,Maxpoint,ganador);
   }
 }
-
+}
 
 system("pause");
 
@@ -307,6 +324,7 @@ void CargarDados(int dados[],int tam){
 int x, i,r;
 cout<<"Cargue los dados:";
 for(x=0;x<tam;x++){
+        cout<<endl;
     cin>>dados[x];
 
     }
@@ -432,7 +450,7 @@ if(round[ganador]<rondas){
 }
 return Mayor;
 }
- // FUNCION RECUADRO
+// FUNCION RECUADRO
  void recuadro ( int x, int y, int ancho, int alto){
     const char *UI_BOTTOM_RIGHT = "\xD9"; // 217 - ┘
     const char *UI_BOTTOM_LEFT = "\xC0"; // 192 - └
@@ -447,15 +465,15 @@ return Mayor;
     const char *UI_VERTICAL_LINE_RIGHT = "\xB4"; // 180 - ┤
 
     int i, j;
-
-    for (i=x; i<=x+ancho; i++){
+     for (i=x; i<=x+ancho; i++){
         for (j=y; j<=y+alto; j++){
-            locate (i,j);
-            cout <<" ";
 
-        }
+          setBackgroundColor(WHITE);
+            locate (i,j);
+            cout <<" "; }
 
     }
+/*
 // lineas horizontales
    for (i=x; i<x+ancho; i++){
     locate (i,y);
@@ -481,6 +499,8 @@ return Mayor;
   cout<<UI_TOP_RIGHT;
   locate (x+ancho, y+alto);
   cout<<UI_BOTTOM_RIGHT;
+
+*/
 }
 
 //funcion dibujar dados
@@ -499,8 +519,8 @@ void dibujardado ( int numerodado , int valor ){
    const int ABAJO_X = CENTRO_X +2;
    const int ABAJO_Y = CENTRO_Y+1;
 
-
    recuadro(X,Y,ANCHO,ALTO);
+
 
    switch (valor) {
    case 1:
@@ -559,4 +579,17 @@ void dibujardado ( int numerodado , int valor ){
          break;
    }
 
+}
+
+void colores ( int i){
+             if (i==0){
+             rlutil::setColor(BLACK);
+             rlutil::setBackgroundColor(3); }
+
+             if (i==1) {
+                    rlutil::setColor(BLACK);
+                    rlutil::setBackgroundColor(4);}
+             if (i==2){
+                       rlutil::setColor(BLACK);
+                       rlutil::setBackgroundColor(8); }
 }

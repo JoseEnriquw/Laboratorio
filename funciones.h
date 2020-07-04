@@ -26,4 +26,6 @@ void Buscar_Mejor_Puntuacion(char Nombres[][M],char NombreMax[],int round[],int 
 void recuadro ( int x, int y, int ancho, int alto);
 
 void dibujardado ( int numerodado , int valor );
+
+void colores (int i);
 #endif // FUNCIONES_H_INCLUDED

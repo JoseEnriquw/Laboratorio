@@ -11,11 +11,11 @@ using namespace std;
 using namespace rlutil;
 
 int main(){
-int dados[6],auxMAx,cjugadores;
+int dados[6],cjugadores;
 int opcion=0,Maxpoint=0,rondas=11, i;
 char NombreMax[25];
 bool azar=false;
-Maxpoint=0;
+
 rlutil::setBackgroundColor(5);
 rlutil::setColor(BLACK);
 if (opcion==0){

@@ -19,7 +19,9 @@ void reglas ();
 
 void bienvenida ();
 
-void BuscarMaximode1(int &Maximo,int &rondas,int puntos[],int round[],char nombre[][M],char name[]);
+int BuscarMayor(int &ganador,int puntostotal[],int cjugadores);
+
+void Buscar_Mejor_Puntuacion(char Nombres[][M],char NombreMax[],int round[],int &rondas,int puntostotal[],int &Maxpoint,int ganador);
 
 void recuadro ( int x, int y, int ancho, int alto);
 

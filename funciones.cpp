@@ -69,7 +69,7 @@ case 's' : case 'S':
              seguir=0;
              round[i]=x;
              x=11;
-             ganador=-1;
+             ganador=i;
 
         }else {
         puntosronda+=puntos;
@@ -116,77 +116,52 @@ system("cls");
 }
 
 
-// comparacion para saber si estas jugando de a uno
+
 if(ganador==-1){
+    ///Busca el Mayor puntaje para saber quien gana
+   Mayor=BuscarMayor(ganador,puntostotal,cjugadores);
 
-BuscarMaximode1(Maxpoint,rondas,puntostotal,round,Nombres,NombreMax);
-
-   }
-
-
-
-// for para saber si hay empates
+   // for para saber si hay empates
 for(x=0;x<cjugadores;x++){
  if(Mayor==puntostotal[x]){
-    posiciones[x]=x;
+    posiciones[cposiciones]=x;
     cposiciones++;
 
  }
 
 }
+   }
+
 
 
 system("cls");
-if(cposiciones==1){
+
+
+
 cout<<"Fin la partida. "<<endl;
 
 //if para abandonar la partida
 if (opcion!='Q' ){
     if (opcion!='q'){
+ if(cposiciones==1) {
 cout<<"Ganador:"<<endl;
 cout<<Nombres[ganador]<<endl;
 cout<<"-------------------------------------------------------------------------"<<endl;
 cout<<"Rondas jugadas: "<<round[ganador]<<endl;
 cout<<"-------------------------------------------------------------------------"<<endl;
 cout<<"Puntos de ganador: "<<puntostotal[ganador]<<endl;
+ }else{
 
-// para saber si tiene la mejor puntuacion
-if(round[ganador]<rondas){
-    Maxpoint=puntostotal[ganador];
-    rondas=round[ganador];
-    strcpy( NombreMax, Nombres[ganador]);
-}else if(rondas==round[ganador]){
-if(puntostotal[ganador]>Maxpoint){
-    Maxpoint=puntostotal[ganador];
-    rondas=round[ganador];
-    strcpy( NombreMax, Nombres[ganador]);
-
-}
-}
-}
-
-// else de cuando tengamos empate enviara mejor puntuacion como el primer mayor encontrado
-else{
-    cout <<"Hubo un empate entre: " ;
+   cout <<"Hubo un empate entre: " ;
     for (x=0; x<cposiciones;x++){
         cout<<"-"<<Nombres[posiciones[x]];
     }
-    if(round[ganador]<rondas){
-    Maxpoint=Mayor;
-    rondas=round[ganador];
-    strcpy( NombreMax, Nombres[ganador]);
-}else if(rondas==round[ganador]){
-if(Mayor>Maxpoint){
-    Maxpoint=Mayor;
-    rondas=round[ganador];
-    strcpy( NombreMax, Nombres[ganador]);
-
-}
-}
-}
+ }
+Buscar_Mejor_Puntuacion(Nombres,NombreMax,round,rondas,puntostotal,Maxpoint,ganador);
+  }
 }
 
-}
+
 system("pause");
 
 }
@@ -233,7 +208,7 @@ int combinaciones (int dados [],int tam ) {
 
 if (vcontador[0]==6){
     puntajes[0]=10000;
-    cout <<"- SEXTETO!!!"<<endl;
+    cout <<"- SEXTETO, MAQUINA, IDOLO,MASTER,CAPO,EMINENCIA!!!!  "<<endl<<endl;
     system("pause");
 }
 if (vcontador[0]==1||vcontador[0]==2){
@@ -267,6 +242,7 @@ if(escalera){
     puntajes[1]=1500;
     cout <<"- Escalera."<<endl;
 }
+
 for (i=1; i<6; i++){
     if(vcontador[i]==3){
         if(trio==0){
@@ -405,25 +381,57 @@ system ("pause");
 
 }
 
+void Buscar_Mejor_Puntuacion(char Nombres[][M],char NombreMax[],int round[],int &rondas,int puntostotal[],int &Maxpoint,int ganador){
+
+// para saber si tiene la mejor puntuacion
+if(puntostotal[ganador]>Maxpoint){
+    Maxpoint=puntostotal[ganador];
+    rondas=round[ganador];
+    strcpy( NombreMax, Nombres[ganador]);
+}else if(puntostotal[ganador]==Maxpoint){
+if(round[ganador]<rondas){
+    Maxpoint=puntostotal[ganador];
+    rondas=round[ganador];
+    strcpy( NombreMax, Nombres[ganador]);
+
+}
+}
+
+}
 
 
- void BuscarMaximode1(int &Maximo,int &rondas,int puntos[],int round[],char nombre[][M],char name[]){
-if(puntos[0]>Maximo){
-    Maximo=puntos[0];
-    rondas=round[0];
-    strcpy( name, nombre[0]);
+
+
+
+
+
+
+
+
+
+
+ int BuscarMayor(int &ganador,int puntostotal[],int cjugadores){
+  int x,Mayor;
+
+   for(x=0;x<cjugadores;x++){
+   if(x==0){
+    Mayor=puntostotal[x];
+    ganador=x;
+
    }
 //para saber si hay mas de un jugador
-   else if(puntos[0]==Maximo){
-    if(round[0]<rondas){
-     Maximo=puntos[0];
-    rondas=round[0];
-     strcpy( name, nombre[0]);
-   }
+   else{
+   if(puntostotal[x]>Mayor){
+     Mayor=puntostotal[x];
+     ganador=x;
+
+
 
    }
  }
-
+}
+return Mayor;
+}
  // FUNCION RECUADRO
  void recuadro ( int x, int y, int ancho, int alto){
     const char *UI_BOTTOM_RIGHT = "\xD9"; // 217 - ┘
